@@ -1,0 +1,30 @@
+.Chat {
+	height: 100vh;
+	display: flex;
+	.Chat__nav {
+		min-width: 75px;
+	}
+	.Chat__sidebar {
+		flex: 0.25;
+	}
+	.Chat__main {
+		flex: 0.75;
+	}
+	@media screen and (max-width: 900px) {
+		& {
+			flex-direction: column-reverse;
+		}
+		.Chat__main {
+			position: fixed;
+			height: 100vh;
+			width: 100vw;
+			left: 100%;
+			&.active {
+				left: 0;
+			}
+		}
+		.Chat__sidebar {
+			flex: 1;
+		}
+	}
+}

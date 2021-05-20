@@ -1,0 +1,49 @@
+@import '../../../../colors.scss';
+
+.Contact {
+	display: flex;
+	align-items: center;
+	.info {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		margin: 1rem 0;
+		.displayName {
+			color: $secondary-text-color;
+			margin-left: 1rem;
+			font-size: medium;
+		}
+		cursor: pointer;
+	}
+	.more,
+	.add {
+		cursor: pointer;
+		color: $primary-text-color;
+		position: relative;
+		ol {
+			visibility: hidden;
+			opacity: 0;
+			width: 160px;
+			padding: 0.5rem 0;
+			list-style: none;
+			position: absolute;
+			border: 1px solid $lightest-background;
+			border-radius: 0.2rem;
+			right: 0;
+			background-color: $darkest-background;
+			transition: all 0.3s;
+			&.active {
+				visibility: visible;
+				opacity: 1;
+			}
+			li {
+				display: flex;
+				justify-content: space-between;
+				padding: 0.2rem 1rem;
+				&:hover {
+					background-color: $light-background;
+				}
+			}
+		}
+	}
+}

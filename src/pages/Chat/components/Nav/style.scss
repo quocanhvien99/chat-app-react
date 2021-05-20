@@ -1,0 +1,48 @@
+@import '../../../colors.scss';
+.Chat__nav {
+	background-color: $light-background;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	.MuiSvgIcon-root {
+		color: $primary-text-color;
+		font-size: xx-large;
+	}
+	.middle {
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+	}
+	.nav__item {
+		height: 56px;
+		width: 56px;
+		margin: 0.5rem auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 0.5rem;
+		cursor: pointer;
+		&.active {
+			background-color: $lightest-background;
+			.MuiSvgIcon-root {
+				color: $secondary-color;
+			}
+		}
+	}
+	@media screen and (max-width: 900px) {
+		& {
+			flex-direction: row;
+			justify-content: center;
+		}
+		.middle {
+			ul {
+				display: flex;
+				margin: 0;
+			}
+		}
+		.nav__item {
+			margin: 0.5rem;
+		}
+	}
+}

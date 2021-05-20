@@ -1,6 +1,6 @@
 @import '../colors';
 
-.Login {
+.Register {
 	color: $primary-text-color;
 	.account-pages {
 		h4 {
@@ -25,35 +25,7 @@
 					box-shadow: none;
 				}
 			}
-			.forget {
-				a {
-					text-decoration: none;
-					font-size: small;
-					color: $primary-text-color;
-				}
-			}
-			.form-check {
-				.form-check-input {
-					width: 1em;
-					height: 1em;
-					margin-top: 0.25em;
-					border: 1px solid $primary-text-color;
-					border-radius: 3px;
-					background-color: $light-background;
-					outline: none;
-					-moz-appearance: none;
-					appearance: none;
-					transition: all 0.5s;
-				}
-				.form-check-input:focus {
-					box-shadow: 0 0 0 0.15rem rgb(114, 105, 239);
-				}
-				.form-check-input:checked {
-					background-color: $primary-color;
-					border-color: $primary-color;
-					background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3 6-6'/%3E%3C/svg%3E");
-				}
-			}
+
 			button {
 				background-color: $secondary-color;
 				border: none;

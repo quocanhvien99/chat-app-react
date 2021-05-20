@@ -1,0 +1,94 @@
+@import '../../../colors.scss';
+
+.Chat__sidebar {
+	width: 0.25vw;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	.sidebar__header {
+		color: $secondary-text-color;
+		margin-bottom: 1.5rem;
+	}
+	.Chat__sidebar__conversation {
+		flex: 1;
+	}
+}
+.Chat__sidebar.contact {
+	.input-group {
+		background-color: $light-background;
+		span,
+		input {
+			height: 46px;
+			background-color: transparent;
+			border: none;
+			color: $primary-text-color;
+			box-shadow: none;
+		}
+	}
+	.contacts {
+		height: 100%;
+		list-style: none;
+		padding: 0;
+		margin: 1.5rem 0 0;
+		overflow-y: scroll;
+		&::-webkit-scrollbar {
+			width: 7px;
+		}
+		/* Handle */
+		&::-webkit-scrollbar-thumb {
+			background-color: #646d76;
+			border-radius: 1rem;
+			transition: all 0.5s;
+		}
+	}
+}
+.Chat__sidebar.setting {
+	color: $secondary-text-color;
+	.avatar {
+		margin: 2rem auto;
+		position: relative;
+		.MuiAvatar-root {
+			width: 90px;
+			height: 90px;
+		}
+		.edit {
+			color: $secondary-text-color;
+			position: absolute;
+			right: 0;
+			bottom: -10px;
+			background-color: $light-background;
+			border: none;
+			border-radius: 99px;
+			width: 35px;
+			height: 35px;
+			&:hover {
+				background-color: $darkest-background;
+			}
+		}
+	}
+	.name {
+		div {
+			width: fit-content;
+			margin: 0 auto;
+			font-size: large;
+			position: relative;
+			.edit {
+				display: none;
+				position: absolute;
+				top: 0;
+				right: -30px;
+				cursor: pointer;
+			}
+		}
+		&:hover {
+			.edit {
+				display: block;
+			}
+		}
+	}
+}
+@media screen and (max-width: 900px) {
+	.Chat__sidebar {
+		width: 100vw;
+	}
+}

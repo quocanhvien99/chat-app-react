@@ -4,15 +4,18 @@ import './index.css';
 import App from './App';
 import store from './app/store';
 import { Provider } from 'react-redux';
+import { HelmetProvider } from 'react-helmet-async';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'remixicon/fonts/remixicon.css';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
+		<HelmetProvider>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</HelmetProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

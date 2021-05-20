@@ -1,75 +1,93 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import firebase from '../../services/firebase';
 import './style.scss';
 
-export default function Login() {
+export default function Register() {
+	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [passwd, setPasswd] = useState('');
-	const [remember, setRemember] = useState(true);
 	const isLogged = useSelector((state) => state.user.isLogged);
 
 	const handleValue = (e, type) => {
 		switch (type) {
+			case 'name':
+				setName(e.target.value);
+				break;
 			case 'email':
 				setEmail(e.target.value);
 				break;
 			case 'password':
 				setPasswd(e.target.value);
 				break;
-			case 'remember':
-				setRemember(!remember);
-				break;
 			default:
 				break;
 		}
 	};
+
 	const submit = (e) => {
 		e.preventDefault();
-		if (remember) {
-			localStorage.setItem('auto_fill', JSON.stringify({ email, passwd }));
-		} else {
-			localStorage.removeItem('auto_fill');
-		}
 		firebase
 			.auth()
-			.signInWithEmailAndPassword(email, passwd)
+			.createUserWithEmailAndPassword(email, passwd)
 			.then((userCredential) => {
-				window.alert('Đăng nhập thành công.');
+				firebase
+					.firestore()
+					.collection('users')
+					.doc(userCredential.user.uid)
+					.set({
+						uid: userCredential.user.uid,
+						displayName: name,
+						friends: [],
+						photoURL:
+							'https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg',
+						status: 'offline',
+						timestamp: Date.now(),
+					})
+					.then(() => {
+						window.alert('Tạo tài khoản thành công.');
+					})
+					.catch((error) => window.alert(error));
 			})
 			.catch((error) => window.alert(error));
 	};
 
-	//Xử lý tự động điền thông tin
-	useEffect(() => {
-		const data = JSON.parse(localStorage.getItem('auto_fill'));
-		if (data) {
-			setEmail(data.email);
-			setPasswd(data.passwd);
-		}
-	}, []);
-
 	return isLogged ? (
 		<Redirect to="/app" />
 	) : (
-		<div className="Login">
+		<div className="Register">
 			<Helmet>
-				<title>Login | NipTuck Chatting</title>
+				<title>Register | NipTuck Chatting</title>
 			</Helmet>
 			<div className="account-pages my-5 pt-sm-5">
 				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-md-8 col-lg-6 col-xl-5 ">
 							<div className="text-center mb-4">
-								<h4>Đăng nhập</h4>
-								<div>Đăng nhập để sử dụng NipTuck.</div>
+								<h4>Đăng ký</h4>
+								<div>Tạo tài khoản để sử dụng NipTuck.</div>
 							</div>
 							<div className="card">
 								<div className="card-body p-4">
 									<div className="p-3">
 										<form>
+											<div className="mb-3">
+												<label>Họ tên</label>
+												<div className="rounded-3 input-group">
+													<span className="input-group-text">
+														<i className="ri-user-2-line"></i>
+													</span>
+													<input
+														type="text"
+														className="form-control"
+														placeholder="Nhập họ và tên"
+														value={name}
+														onChange={(e) => handleValue(e, 'name')}
+													/>
+												</div>
+											</div>
 											<div className="mb-3">
 												<label>Email</label>
 												<div className="rounded-3 input-group">
@@ -87,9 +105,6 @@ export default function Login() {
 											</div>
 											<div className="mb-4">
 												<label>Mật khẩu</label>
-												<div className="d-inline float-right forget">
-													<Link to="/forget-password">Quên mật khẩu?</Link>
-												</div>
 												<div className="rounded-3 input-group">
 													<span className="input-group-text">
 														<i className="ri-lock-2-line"></i>
@@ -103,32 +118,24 @@ export default function Login() {
 													/>
 												</div>
 											</div>
-											<div className="form-check mb-4">
-												<input
-													type="checkbox"
-													id="remember-check"
-													className="form-check-input"
-													checked={remember}
-													onChange={(e) => handleValue(e, 'remember')}
-												/>
-												<label
-													htmlFor="remember-check"
-													className="form-check-label">
-													Ghi nhớ tài khoản
-												</label>
-											</div>
 											<button
 												className="btn btn-primary btn-block"
 												onClick={submit}>
-												Đăng nhập
+												Đăng ký
 											</button>
+											<div className="mt-4 text-center">
+												<p className="mb-0">
+													Trước khi hoàn tất hãy đọc{' '}
+													<Link to="#">Điều khoản sử dụng</Link>
+												</p>
+											</div>
 										</form>
 									</div>
 								</div>
 							</div>
 							<div className="mt-5 text-center">
 								<p>
-									Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
+									Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
 								</p>
 								<p>
 									©2021 NipTuck. Developed by{' '}
