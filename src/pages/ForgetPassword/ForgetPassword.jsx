@@ -33,7 +33,7 @@ export default function ForgetPassword() {
 	) : (
 		<div className="Login">
 			<Helmet>
-				<title>Login | NipTuck Chatting</title>
+				<title>Forgot Password | NipTuck Chatting</title>
 			</Helmet>
 			<div className="account-pages my-5 pt-sm-5">
 				<div className="container">

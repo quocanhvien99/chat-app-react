@@ -1,0 +1,46 @@
+@import '../../../../colors.scss';
+
+.Modal {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba($color: #000000, $alpha: 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	.MuiAvatar-root {
+		height: 90px;
+		width: 90px;
+	}
+	form {
+		position: fixed;
+		top: 30%;
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: $darker-background;
+		input {
+			background-color: $light-background;
+			padding: 0.3rem;
+			border: 1px solid $lightest-background;
+		}
+		.MuiAvatar-root {
+			margin: 2rem auto;
+		}
+		button {
+			border: none;
+			background-color: $secondary-color;
+			color: $secondary-text-color;
+			width: 50%;
+			padding: 0.3rem 0;
+			&:hover {
+				background-color: $primary-color;
+			}
+		}
+		button[type='reset'] {
+			background-color: #ea2266;
+			&:hover {
+				background-color: #b9305f;
+			}
+		}
+	}
+}

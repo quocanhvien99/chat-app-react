@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import firebase from '../../../../services/firebase';
 import moment from 'moment';
 import './style.scss';
+import backgroundSVG from './image/undraw_Group_chat_re_frmo.svg';
 
 export default function ChatMain({ openMainChat, setOpenMainChat }) {
 	let { id } = useParams();
@@ -100,10 +101,10 @@ export default function ChatMain({ openMainChat, setOpenMainChat }) {
 	};
 
 	useEffect(() => {
-		if (firstLoading === false) {
+		if (firstLoading === false && id) {
 			ref.current.scrollTop = ref.current.scrollHeight;
 		}
-	}, [firstLoading]);
+	}, [firstLoading, id]);
 
 	useEffect(() => {
 		if (id) {
@@ -206,23 +207,44 @@ export default function ChatMain({ openMainChat, setOpenMainChat }) {
 			});
 	}, [id]);
 
-	return (
-		<div className={`Chat__main ${openMainChat ? 'active' : ''}`}>
-			<div className="Chat__main__header">
-				<div className="set-active" onClick={() => setOpenMainChat(false)}>
-					<ChevronLeft></ChevronLeft>
+	if (id)
+		return (
+			<div className={`Chat__main ${openMainChat ? 'active' : ''}`}>
+				<div className="Chat__main__header">
+					<div className="set-active" onClick={() => setOpenMainChat(false)}>
+						<ChevronLeft></ChevronLeft>
+					</div>
+					<div className="avatar mr-3">
+						<Avatar src={chatHeader.avatar}></Avatar>
+					</div>
+					<h5 className="displayName">{chatHeader.name}</h5>
 				</div>
-				<div className="avatar mr-3">
-					<Avatar src={chatHeader.avatar}></Avatar>
-				</div>
-				<h5 className="displayName">{chatHeader.name}</h5>
-			</div>
-			<div className="Chat__main__conversation" ref={ref}>
-				<ul>
-					{messages.map((message, index) => {
-						if (messages.length - 2 === index + 1) {
+				<div className="Chat__main__conversation" ref={ref}>
+					<ul>
+						{messages.map((message, index) => {
+							if (messages.length - 2 === index + 1) {
+								return (
+									<li ref={lastMessageElement}>
+										<div
+											className={`message ${
+												message.uid === uid ? 'right' : ''
+											}`}>
+											<Avatar src={message.photoURL}></Avatar>
+											<div className="message__content">
+												<div className="content">
+													{message.content}
+													<div className="timestamp">
+														{fomartTime(message.timestamp)}
+													</div>
+												</div>
+												<div className="name">{message.displayName}</div>
+											</div>
+										</div>
+									</li>
+								);
+							}
 							return (
-								<li ref={lastMessageElement}>
+								<li>
 									<div
 										className={`message ${message.uid === uid ? 'right' : ''}`}>
 										<Avatar src={message.photoURL}></Avatar>
@@ -238,41 +260,28 @@ export default function ChatMain({ openMainChat, setOpenMainChat }) {
 									</div>
 								</li>
 							);
-						}
-						return (
-							<li>
-								<div
-									className={`message ${message.uid === uid ? 'right' : ''}`}>
-									<Avatar src={message.photoURL}></Avatar>
-									<div className="message__content">
-										<div className="content">
-											{message.content}
-											<div className="timestamp">
-												{fomartTime(message.timestamp)}
-											</div>
-										</div>
-										<div className="name">{message.displayName}</div>
-									</div>
-								</div>
-							</li>
-						);
-					})}
-				</ul>
+						})}
+					</ul>
+				</div>
+				<div className="Chat__main__input">
+					<form>
+						<input
+							type="text"
+							id=""
+							placeholder="Nhập vào tin nhắn..."
+							onChange={inputHandle}
+							value={message}
+						/>
+						<button onClick={send}>
+							<Send></Send>
+						</button>
+					</form>
+				</div>
 			</div>
-			<div className="Chat__main__input">
-				<form>
-					<input
-						type="text"
-						id=""
-						placeholder="Nhập vào tin nhắn..."
-						onChange={inputHandle}
-						value={message}
-					/>
-					<button onClick={send}>
-						<Send></Send>
-					</button>
-				</form>
-			</div>
+		);
+	return (
+		<div className="Chat__main">
+			<img src={backgroundSVG} alt="background" id="backgroundSVG" />
 		</div>
 	);
 }

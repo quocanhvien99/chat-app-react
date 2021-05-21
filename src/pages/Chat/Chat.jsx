@@ -7,6 +7,7 @@ import SideBarSetting from './components/SideBar/SideBarSetting';
 import ChatMain from './components/ChatMain/ChatMain';
 import Nav from './components/Nav/Nav';
 import './style.scss';
+import { Helmet } from 'react-helmet-async';
 
 export default function Chat() {
 	const user = useSelector((state) => state.user);
@@ -23,6 +24,9 @@ export default function Chat() {
 
 	return user.isLogged ? (
 		<div className="Chat">
+			<Helmet>
+				<title>App | NipTuck Chatting</title>
+			</Helmet>
 			<Nav navSelected={navSelected} setNavSelected={setNavSelected} />
 			{renderSideBar()}
 			<ChatMain openMainChat={openMainChat} setOpenMainChat={setOpenMainChat} />

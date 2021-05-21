@@ -40,7 +40,7 @@ export default function Register() {
 					.set({
 						uid: userCredential.user.uid,
 						displayName: name,
-						friends: [],
+						friends: ['7wwHdEhOVQeGM68c9Ee9vq1rVCB2'],
 						photoURL:
 							'https://i.pinimg.com/236x/e8/48/4d/e8484d6b06aa3f16206627c023a159fd.jpg',
 						status: 'offline',

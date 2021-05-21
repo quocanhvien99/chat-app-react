@@ -79,6 +79,15 @@
 				right: -30px;
 				cursor: pointer;
 			}
+			form {
+				input {
+					color: $secondary-text-color;
+					background-color: $darkest-background;
+				}
+				button {
+					display: none;
+				}
+			}
 		}
 		&:hover {
 			.edit {
