@@ -1,5 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 
 export default function Home() {
-	return <div>Home</div>;
+	return (
+		<div>
+			<Redirect to="/app"></Redirect>
+		</div>
+	);
 }
