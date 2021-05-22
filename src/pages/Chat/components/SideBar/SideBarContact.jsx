@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Search } from '@material-ui/icons';
 import Contact from './Contact/Contact';
 import firebase from '../../../../services/firebase';
