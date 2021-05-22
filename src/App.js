@@ -46,7 +46,7 @@ function App() {
 				dispatch(removeUser());
 			}
 		});
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className="App">

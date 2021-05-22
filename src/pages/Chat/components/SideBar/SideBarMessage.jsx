@@ -50,7 +50,7 @@ export default function SideBarMessage({ setOpenMainChat }) {
 				firestoreDB();
 			};
 		}
-	}, [uid]);
+	}, [uid, user.isLogged]);
 
 	return (
 		<div className="Chat__sidebar message">

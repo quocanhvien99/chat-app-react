@@ -56,6 +56,7 @@ export default function ChatMain({ openMainChat, setOpenMainChat }) {
 									let data = doc.data();
 									messageList[index].displayName = data.displayName;
 									messageList[index].photoURL = data.photoURL;
+									return 0;
 								});
 								setMessages([...messages, ...messageList]);
 								if (snapshot.size < 10) setHasMore(false);
@@ -200,6 +201,7 @@ export default function ChatMain({ openMainChat, setOpenMainChat }) {
 						let data = doc.data();
 						messageList[index].displayName = data.displayName;
 						messageList[index].photoURL = data.photoURL;
+						return 0;
 					});
 					setMessages(messageList);
 					setFirstLoading(false);
