@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Search } from '@material-ui/icons';
 import Contact from './Contact/Contact';
 import firebase from '../../../../services/firebase';
@@ -12,36 +12,38 @@ export default function SideBarContact({ setOpenMainChat }) {
 	const [results, setResults] = useState([]);
 	const uid = useSelector((state) => state.user.info.uid);
 
-	const debounceSearch = useCallback(
-		debounce((nextValue) => {
-			if (!nextValue.length) {
-				setResults([]);
-				return;
-			}
-			firebase
-				.firestore()
-				.collection('users')
-				.doc(uid)
-				.get()
-				.then((doc) => {
-					const data = doc.data();
-					const { friends } = data;
-					algolia.search(nextValue).then(({ hits }) => {
-						let contactsTemp = [];
-						hits.forEach((hit) => {
-							contactsTemp.push({
-								photoURL: hit.photoURL,
-								displayName: hit.displayName,
-								uid: hit.uid,
-								friend: friends.indexOf(hit.uid) === -1 ? false : true,
+	const debounceSearch = useMemo(
+		() =>
+			debounce((nextValue) => {
+				if (!nextValue.length) {
+					setResults([]);
+					return;
+				}
+				firebase
+					.firestore()
+					.collection('users')
+					.doc(uid)
+					.get()
+					.then((doc) => {
+						const data = doc.data();
+						const { friends } = data;
+						algolia.search(nextValue).then(({ hits }) => {
+							let contactsTemp = [];
+							hits.forEach((hit) => {
+								contactsTemp.push({
+									photoURL: hit.photoURL,
+									displayName: hit.displayName,
+									uid: hit.uid,
+									friend: friends.indexOf(hit.uid) === -1 ? false : true,
+								});
 							});
+							setResults(contactsTemp);
 						});
-						setResults(contactsTemp);
 					});
-				});
-		}, 1000),
-		[]
+			}, 1000),
+		[uid]
 	);
+
 	const searchHandle = (event) => {
 		setKeyword(event.target.value);
 		debounceSearch(event.target.value);
